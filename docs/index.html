@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Bài Tập Sắp Xếp Câu Tiếng Anh - Chào Hỏi & Giới Thiệu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="py-10 px-4 sm:px-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
+        <!-- Header -->
+        <header class="border-b pb-6 mb-8 text-center sm:text-left">
+            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">CHỦ ĐỀ 1</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">GIAO TIẾP CƠ BẢN (HÀNG NGÀY)</h1>
+            <h2 class="text-lg sm:text-xl font-semibold text-blue-600 mt-1">UNIT 1 · GREETINGS & INTRODUCTIONS (CHÀO HỎI VÀ GIỚI THIỆU)</h2>
+            <p class="text-gray-600 text-sm mt-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                👉 <strong>Yêu cầu:</strong> Ráp lại các từ để tạo thành câu tiếng Anh hoàn chỉnh, đúng nghĩa với câu tiếng Việt cho sẵn. Nhớ viết hoa chữ đầu câu và thêm dấu câu.
+            </p>
+        </header>
+
+        <!-- Exercises List -->
+        <div id="exercises" class="space-y-6"></div>
+
+        <!-- Global Action Buttons -->
+        <div class="mt-10 pt-6 border-t flex flex-wrap gap-4 justify-between items-center">
+            <button onclick="checkAll()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition duration-200">
+                Kiểm Tra Tất Cả Đáp Án
+            </button>
+            <button onclick="resetAll()" class="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-200">
+                Làm Lai Từ Đầu
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            { vi: "Xin chào, tôi tên là Long.", words: "name / is / Long / my / hello", ans: ["Hello, my name is Long."] },
+            { vi: "Rất vui được gặp bạn.", words: "meet / nice / to / you / is / it", ans: ["It is nice to meet you.", "Nice to meet you."] },
+            { vi: "Chào buổi sáng, mọi người.", words: "everyone / morning / good", ans: ["Good morning, everyone."] },
+            { vi: "Bạn khỏe không?", words: "are / how / you", ans: ["How are you?"] },
+            { vi: "Tôi khỏe, cảm ơn.", words: "fine / thanks / I / am", ans: ["I am fine, thanks.", "Fine, thanks."] },
+            { vi: "Tên bạn là gì?", words: "your / is / what / name", ans: ["What is your name?"] },
+            { vi: "Tôi đến từ Việt Nam.", words: "from / I / Vietnam / am", ans: ["I am from Vietnam."] },
+            { vi: "Bạn đến từ đâu?", words: "you / where / from / are", ans: ["Where are you from?"] },
+            { vi: "Tôi là một sinh viên.", words: "am / student / a / I", ans: ["I am a student."] },
+            { vi: "Tạm biệt, gặp lại bạn sau.", words: "you / see / later / goodbye", ans: ["Goodbye, see you later."] },
+            { vi: "Chúc một ngày tốt lành.", words: "a / have / day / nice", ans: ["Have a nice day."] },
+            { vi: "Bạn bao nhiêu tuổi?", words: "old / how / you / are", ans: ["How old are you?"] },
+            { vi: "Tôi 20 tuổi.", words: "twenty / am / old / years / I", ans: ["I am twenty years old."] },
+            { vi: "Đây là bạn của tôi, Nam.", words: "friend / is / my / Nam / this", ans: ["This is my friend, Nam."] },
+            { vi: "Rất hân hạnh được gặp bạn.", words: "pleased / meet / to / you / I / am", ans: ["I am pleased to meet you."] },
+            { vi: "Cảm ơn bạn rất nhiều.", words: "much / you / thank / so", ans: ["Thank you so much."] },
+            { vi: "Không có gì.", words: "welcome / are / you", ans: ["You are welcome."] },
+            { vi: "Xin lỗi, tôi đến trễ.", words: "late / sorry / I / for / am / being", ans: ["I am sorry for being late."] },
+            { vi: "Chúc ngủ ngon.", words: "night / good", ans: ["Good night."] },
+            { vi: "Bạn sống ở đâu?", words: "do / live / where / you", ans: ["Where do you live?"] },
+            { vi: "Tôi sống ở Hà Nội.", words: "live / Hanoi / in / I", ans: ["I live in Hanoi."] },
+            { vi: "Công việc của bạn là gì?", words: "your / is / job / what", ans: ["What is your job?"] },
+            { vi: "Tôi là một giáo viên.", words: "a / teacher / am / I", ans: ["I am a teacher."] },
+            { vi: "Hôm nay bạn thế nào?", words: "you / doing / are / how / today", ans: ["How are you doing today?"] },
+            { vi: "Tôi rất khỏe.", words: "doing / I / great / am", ans: ["I am doing great."] },
+            { vi: "Còn bạn thì sao?", words: "you / about / how", ans: ["How about you?"] },
+            { vi: "Rất vui được biết bạn.", words: "know / good / to / you", ans: ["Good to know you."] },
+            { vi: "Hẹn gặp lại bạn vào ngày mai.", words: "you / see / tomorrow", ans: ["See you tomorrow."] },
+            { vi: "Xin lỗi vì đã làm phiền bạn.", words: "sorry / bother / to / you", ans: ["Sorry to bother you."] },
+            { vi: "Hãy giữ liên lạc nhé.", words: "in / keep / touch", ans: ["Keep in touch."] },
+            { vi: "Số điện thoại của bạn là gì?", words: "phone / is / what / number / your", ans: ["What is your phone number?"] },
+            { vi: "Email của bạn là gì?", words: "your / what / email / is / address", ans: ["What is your email address?"] },
+            { vi: "Tôi có thể giúp gì cho bạn?", words: "help / I / can / how / you", ans: ["How can I help you?"] },
+            { vi: "Tôi không sao.", words: "okay / am / I", ans: ["I am okay."] },
+            { vi: "Chúc bạn may mắn.", words: "luck / good", ans: ["Good luck."] },
+            { vi: "Chào buổi chiều.", words: "afternoon / good", ans: ["Good afternoon."] },
+            { vi: "Chào buổi tối.", words: "evening / good", ans: ["Good evening."] },
+            { vi: "Rất lâu rồi không gặp.", words: "time / long / see / no", ans: ["Long time no see."] },
+            { vi: "Dạo này bạn thế nào?", words: "have / how / been / you", ans: ["How have you been?"] },
+            { vi: "Mọi thứ vẫn tốt.", words: "everything / good / is", ans: ["Everything is good."] },
+            { vi: "Không có gì mới cả.", words: "much / not", ans: ["Not much."] },
+            { vi: "Tôi phải đi bây giờ.", words: "go / have / now / I / to", ans: ["I have to go now."] },
+            { vi: "Bảo trọng nhé.", words: "care / take", ans: ["Take care."] },
+            { vi: "Chào mừng bạn đến Việt Nam.", words: "welcome / Vietnam / to", ans: ["Welcome to Vietnam."] },
+            { vi: "Tôi là người mới ở đây.", words: "here / new / am / I", ans: ["I am new here."] },
+            { vi: "Bạn có nói tiếng Anh không?", words: "speak / do / English / you", ans: ["Do you speak English?"] },
+            { vi: "Tôi nói một ít tiếng Anh.", words: "speak / English / I / a / little", ans: ["I speak a little English."] },
+            { vi: "Tôi là một kỹ sư.", words: "an / engineer / am / I", ans: ["I am an engineer."] },
+            { vi: "Bạn làm việc ở đâu?", words: "do / work / where / you", ans: ["Where do you work?"] },
+            { vi: "Tôi làm việc trong một công ty.", words: "work / a / I / company / in", ans: ["I work in a company."] },
+            { vi: "Sở thích của bạn là gì?", words: "your / is / hobby / what", ans: ["What is your hobby?"] },
+            { vi: "Tôi thích đọc sách.", words: "like / reading / I / books", ans: ["I like reading books."] },
+            { vi: "Tôi thích nghe nhạc.", words: "listening / like / to / music / I", ans: ["I like listening to music."] },
+            { vi: "Đây là họ của tôi.", words: "my / last / is / name / this", ans: ["This is my last name."] },
+            { vi: "Vui lòng gọi tôi là Alex.", words: "me / call / please / Alex", ans: ["Please call me Alex."] },
+            { vi: "Bạn có khỏe không?", words: "all / right / are / you", ans: ["Are you all right?"] },
+            { vi: "Tôi thấy tuyệt lắm.", words: "feel / I / great", ans: ["I feel great."] },
+            { vi: "Hôm nay trời đẹp quá.", words: "beautiful / a / day / it / is / today", ans: ["It is a beautiful day today.", "Today it is a beautiful day."] },
+            { vi: "Chúc bạn một cuối tuần vui vẻ.", words: "a / nice / have / weekend", ans: ["Have a nice weekend."] },
+            { vi: "Cảm ơn vì sự giúp đỡ của bạn.", words: "your / for / thanks / help", ans: ["Thanks for your help."] },
+            { vi: "Đừng lo lắng.", words: "worry / do / not", ans: ["Do not worry."] },
+            { vi: "Không vấn đề gì.", words: "problem / no", ans: ["No problem."] },
+            { vi: "Tôi xin lỗi.", words: "so / am / I / sorry", ans: ["I am so sorry."] },
+            { vi: "Tôi hiểu rồi.", words: "understand / I", ans: ["I understand."] },
+            { vi: "Tôi không hiểu.", words: "do / understand / I / not", ans: ["I do not understand."] },
+            { vi: "Bạn có thể nhắc lại không?", words: "repeat / can / that / you", ans: ["Can you repeat that?"] },
+            { vi: "Xin vui lòng nói chậm lại.", words: "slowly / speak / please", ans: ["Please speak slowly."] },
+            { vi: "Tên bạn đánh vần thế nào?", words: "spell / do / how / you / your / name", ans: ["How do you spell your name?"] },
+            { vi: "Tôi rất vui được ở đây.", words: "happy / am / to / be / here / I", ans: ["I am happy to be here."] },
+            { vi: "Đây là lần đầu tiên của tôi ở đây.", words: "my / first / is / time / here / this", ans: ["This is my first time here."] },
+            { vi: "Bạn thấy thành phố này thế nào?", words: "do / like / how / this / you / city", ans: ["How do you like this city?"] },
+            { vi: "Tôi yêu nơi này.", words: "place / love / I / this", ans: ["I love this place."] },
+            { vi: "Bạn đã kết hôn chưa?", words: "married / are / you", ans: ["Are you married?"] },
+            { vi: "Tôi vẫn còn độc thân.", words: "single / am / I", ans: ["I am single."] },
+            { vi: "Tôi đã có gia đình.", words: "married / am / I", ans: ["I am married."] },
+            { vi: "Bạn có con chưa?", words: "do / have / children / you / any", ans: ["Do you have any children?"] },
+            { vi: "Tôi có hai con.", words: "have / two / children / I", ans: ["I have two children."] },
+            { vi: "Gia đình bạn thế nào?", words: "your / family / how / is", ans: ["How is your family?"] },
+            { vi: "Họ vẫn khỏe.", words: "are / fine / they", ans: ["They are fine."] },
+            { vi: "Anh trai tôi tên là Minh.", words: "my / brother's / Minh / name / is", ans: ["My brother's name is Minh."] },
+            { vi: "Chị gái tôi 25 tuổi.", words: "sister / my / 25 / is / old / years", ans: ["My sister is 25 years old."] },
+            { vi: "Mẹ tôi là một bác sĩ.", words: "my / mother / doctor / a / is", ans: ["My mother is a doctor."] },
+            { vi: "Bố tôi là một tài xế.", words: "father / driver / a / my / is", ans: ["My father is a driver."] },
+            { vi: "Tôi là con một.", words: "am / an / child / I / only", ans: ["I am an only child."] },
+            { vi: "Rất vui được làm quen với bạn.", words: "a / pleasure / it / to / meet / you / is", ans: ["It is a pleasure to meet you."] },
+            { vi: "Cho phép tôi tự giới thiệu.", words: "myself / let / introduce / me", ans: ["Let me introduce myself."] },
+            { vi: "Tôi muốn giới thiệu bạn tôi.", words: "like / introduce / my / friend / I / to / would", ans: ["I would like to introduce my friend."] },
+            { vi: "Bạn tên là gì vậy?", words: "may / I / your / name / have", ans: ["May I have your name?"] },
+            { vi: "Cứ gọi tôi là Tom.", words: "just / Tom / me / call", ans: ["Just call me Tom."] },
+            { vi: "Chúng ta đã gặp nhau chưa?", words: "met / have / before / we", ans: ["Have we met before?"] },
+            { vi: "Tôi nghĩ chúng ta đã từng gặp nhau.", words: "think / we / have / met / I", ans: ["I think we have met."] },
+            { vi: "Rất vui vì đã gặp bạn.", words: "meeting / nice / you", ans: ["Nice meeting you."] },
+            { vi: "Chúc bạn chuyến đi vui vẻ.", words: "a / safe / trip / have", ans: ["Have a safe trip."] },
+            { vi: "Hẹn gặp lại bạn sớm.", words: "you / soon / see", ans: ["See you soon."] },
+            { vi: "Tôi hy vọng gặp lại bạn.", words: "hope / to / see / you / again / I", ans: ["I hope to see you again."] },
+            { vi: "Gửi lời chào của tôi đến gia đình bạn nhé.", words: "say / hello / to / your / family", ans: ["Say hello to your family."] },
+            { vi: "Chúc bạn một ngày tuyệt vời.", words: "a / great / have / day", ans: ["Have a great day."] },
+            { vi: "Chúc mừng sinh nhật.", words: "happy / birthday", ans: ["Happy birthday."] },
+            { vi: "Cảm ơn bạn vì đã đến.", words: "coming / thank / for / you", ans: ["Thank you for coming."] },
+            { vi: "Chào tạm biệt nhé.", words: "bye / for / now", ans: ["Bye for now."] }
+        ];
+
+        function renderExercises() {
+            const container = document.getElementById('exercises');
+            container.innerHTML = data.map((item, index) => `
+                <div class="p-4 sm:p-5 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-base sm:text-lg">${index + 1}. ${item.vi}</p>
+                    <p class="text-blue-600 font-medium my-1 text-sm sm:text-base tracking-wide">${item.words}</p>
+                    <div class="mt-3 flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="input-${index}" placeholder="Nhập câu tiếng Anh..." 
+                            class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                            onkeypress="if(event.key==='Enter') checkSingle(${index})" />
+                        <button onclick="checkSingle(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition duration-150">
+                            Kiểm Tra
+                        </button>
+                    </div>
+                    <p id="result-${index}" class="mt-2 text-sm font-semibold hidden"></p>
+                </div>
+            `).join('');
+        }
+
+        function checkSingle(index) {
+            const userInput = document.getElementById(`input-${index}`).value.trim();
+            const resultElem = document.getElementById(`result-${index}`);
+            
+            resultElem.classList.remove('hidden', 'text-green-600', 'text-red-600');
+
+            if (!userInput) {
+                resultElem.textContent = '❌ Vui lòng nhập câu trả lời!';
+                resultElem.classList.add('text-red-600');
+                return;
+            }
+
+            const isCorrect = data[index].ans.some(a => a.toLowerCase() === userInput.toLowerCase());
+
+            if (isCorrect) {
+                resultElem.textContent = '✅ Chính xác!';
+                resultElem.classList.add('text-green-600');
+            } else {
+                resultElem.innerHTML = `❌ Chưa chính xác. Đáp án đúng: <span class="underline">${data[index].ans[0]}</span>`;
+                resultElem.classList.add('text-red-600');
+            }
+        }
+
+        function checkAll() {
+            data.forEach((_, index) => checkSingle(index));
+        }
+
+        function resetAll() {
+            data.forEach((_, index) => {
+                document.getElementById(`input-${index}`).value = '';
+                const resultElem = document.getElementById(`result-${index}`);
+                resultElem.classList.add('hidden');
+            });
+        }
+
+        renderExercises();
+    </script>
+</body>
+</html>
