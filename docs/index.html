@@ -3,37 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>100 Bài Tập Sắp Xếp Câu Tiếng Anh - Chào Hỏi & Giới Thiệu</title>
+    <title>100 Bài Tập Tiếng Anh Giao Tiếp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f3f4f6;
         }
+        .word-btn {
+            touch-action: manipulation;
+        }
     </style>
 </head>
-<body class="py-10 px-4 sm:px-8">
-    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
+<body class="py-6 px-3 sm:py-10 sm:px-8">
+    <div class="max-w-4xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-xl">
         <!-- Header -->
-        <header class="border-b pb-6 mb-8 text-center sm:text-left">
+        <header class="border-b pb-6 mb-6 text-center">
             <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">CHỦ ĐỀ 1</span>
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">GIAO TIẾP CƠ BẢN (HÀNG NGÀY)</h1>
-            <h2 class="text-lg sm:text-xl font-semibold text-blue-600 mt-1">UNIT 1 · GREETINGS & INTRODUCTIONS (CHÀO HỎI VÀ GIỚI THIỆU)</h2>
-            <p class="text-gray-600 text-sm mt-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
-                👉 <strong>Yêu cầu:</strong> Ráp lại các từ để tạo thành câu tiếng Anh hoàn chỉnh, đúng nghĩa với câu tiếng Việt cho sẵn. Nhớ viết hoa chữ đầu câu và thêm dấu câu.
-            </p>
+            <h2 class="text-base sm:text-lg font-semibold text-blue-600 mt-1">UNIT 1 · GREETINGS & INTRODUCTIONS</h2>
         </header>
 
-        <!-- Exercises List -->
+        <!-- Mode Selection Tabs -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2 text-center sm:text-left">Chọn Chế Độ Luyện Tập:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-1.5 bg-gray-100 rounded-xl">
+                <button onclick="switchMode(1)" id="tab-1" class="tab-btn py-2.5 px-4 rounded-lg font-semibold text-sm transition duration-200 bg-white text-blue-600 shadow-sm">
+                    1. 🧩 Sắp Xếp Từ (Word Puzzle)
+                </button>
+                <button onclick="switchMode(2)" id="tab-2" class="tab-btn py-2.5 px-4 rounded-lg font-semibold text-sm transition duration-200 text-gray-600 hover:text-gray-900">
+                    2. 🇬🇧 ➔ 🇻🇳 Dịch Anh - Việt
+                </button>
+                <button onclick="switchMode(3)" id="tab-3" class="tab-btn py-2.5 px-4 rounded-lg font-semibold text-sm transition duration-200 text-gray-600 hover:text-gray-900">
+                    3. 🇻🇳 ➔ 🇬🇧 Dịch Việt - Anh
+                </button>
+            </div>
+        </div>
+
+        <!-- Mode Instruction Banner -->
+        <div id="instruction" class="text-gray-700 text-sm mb-6 bg-blue-50 p-4 rounded-xl border border-blue-100 font-medium">
+            👉 <strong>Chế độ Sắp Xếp Từ:</strong> Bấm hoặc kéo các từ bên dưới vào khung để tạo thành câu hoàn chỉnh.
+        </div>
+
+        <!-- Exercises List Container -->
         <div id="exercises" class="space-y-6"></div>
 
         <!-- Global Action Buttons -->
-        <div class="mt-10 pt-6 border-t flex flex-wrap gap-4 justify-between items-center">
+        <div class="mt-8 pt-6 border-t flex flex-wrap gap-4 justify-between items-center">
             <button onclick="checkAll()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition duration-200">
                 Kiểm Tra Tất Cả Đáp Án
             </button>
             <button onclick="resetAll()" class="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-200">
-                Làm Lai Từ Đầu
+                Làm Lại Từ Đầu
             </button>
         </div>
     </div>
@@ -142,45 +163,200 @@
             { vi: "Chào tạm biệt nhé.", words: "bye / for / now", ans: ["Bye for now."] }
         ];
 
-        function renderExercises() {
-            const container = document.getElementById('exercises');
-            container.innerHTML = data.map((item, index) => `
-                <div class="p-4 sm:p-5 bg-gray-50 rounded-xl border border-gray-200">
-                    <p class="font-bold text-gray-800 text-base sm:text-lg">${index + 1}. ${item.vi}</p>
-                    <p class="text-blue-600 font-medium my-1 text-sm sm:text-base tracking-wide">${item.words}</p>
-                    <div class="mt-3 flex flex-col sm:flex-row gap-2">
-                        <input type="text" id="input-${index}" placeholder="Nhập câu tiếng Anh..." 
-                            class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                            onkeypress="if(event.key==='Enter') checkSingle(${index})" />
-                        <button onclick="checkSingle(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition duration-150">
-                            Kiểm Tra
-                        </button>
-                    </div>
-                    <p id="result-${index}" class="mt-2 text-sm font-semibold hidden"></p>
-                </div>
+        let currentMode = 1;
+        let puzzleState = {};
+
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Highlight Tab Active
+            [1, 2, 3].forEach(m => {
+                const btn = document.getElementById(`tab-${m}`);
+                if (m === mode) {
+                    btn.className = "tab-btn py-2.5 px-4 rounded-lg font-semibold text-sm transition duration-200 bg-white text-blue-600 shadow-sm";
+                } else {
+                    btn.className = "tab-btn py-2.5 px-4 rounded-lg font-semibold text-sm transition duration-200 text-gray-600 hover:text-gray-900";
+                }
+            });
+
+            // Update Instruction
+            const inst = document.getElementById('instruction');
+            if (mode === 1) {
+                inst.innerHTML = '👉 <strong>Chế độ Sắp Xếp Từ:</strong> Bấm vào các từ bên dưới để xếp thành câu tiếng Anh hoàn chỉnh với nghĩa tương ứng.';
+            } else if (mode === 2) {
+                inst.innerHTML = '👉 <strong>Chế độ Dịch Anh - Việt:</strong> Đọc câu Tiếng Anh gốc và dịch lại câu đó sang Tiếng Việt.';
+            } else {
+                inst.innerHTML = '👉 <strong>Chế độ Dịch Việt - Anh:</strong> Đọc câu Tiếng Việt gốc và tự viết lại câu Tiếng Anh tương ứng.';
+            }
+
+            renderExercises();
+        }
+
+        function initPuzzle(index) {
+            const rawWords = data[index].words.split(' / ').map(w => w.trim());
+            // Trộn ngẫu nhiên từ
+            const shuffled = [...rawWords].sort(() => Math.random() - 0.5);
+            puzzleState[index] = {
+                selected: [],
+                pool: shuffled
+            };
+        }
+
+        function selectWord(index, wordIdx) {
+            const state = puzzleState[index];
+            const word = state.pool[wordIdx];
+            state.selected.push(word);
+            state.pool.splice(wordIdx, 1);
+            renderPuzzleArea(index);
+        }
+
+        function deselectWord(index, wordIdx) {
+            const state = puzzleState[index];
+            const word = state.selected[wordIdx];
+            state.pool.push(word);
+            state.selected.splice(wordIdx, 1);
+            renderPuzzleArea(index);
+        }
+
+        function renderPuzzleArea(index) {
+            const state = puzzleState[index];
+            const targetEl = document.getElementById(`target-${index}`);
+            const poolEl = document.getElementById(`pool-${index}`);
+
+            if (!targetEl || !poolEl) return;
+
+            targetEl.innerHTML = state.selected.length === 0 
+                ? '<span class="text-gray-400 text-sm select-none">Bấm từ bên dưới để chọn...</span>'
+                : state.selected.map((w, i) => `
+                    <button onclick="deselectWord(${index}, ${i})" class="word-btn px-3 py-1 bg-blue-600 text-white rounded-lg font-medium text-sm shadow-sm hover:bg-blue-700 transition">
+                        ${w}
+                    </button>
+                `).join('');
+
+            poolEl.innerHTML = state.pool.map((w, i) => `
+                <button onclick="selectWord(${index}, ${i})" class="word-btn px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium text-sm shadow-sm hover:bg-gray-100 transition">
+                    ${w}
+                </button>
             `).join('');
         }
 
+        function renderExercises() {
+            const container = document.getElementById('exercises');
+            puzzleState = {};
+
+            container.innerHTML = data.map((item, index) => {
+                if (currentMode === 1) {
+                    initPuzzle(index);
+                    return `
+                        <div class="p-4 sm:p-5 bg-gray-50 rounded-xl border border-gray-200">
+                            <p class="font-bold text-gray-800 text-base sm:text-lg">${index + 1}. ${item.vi}</p>
+                            
+                            <!-- Target Drop Area -->
+                            <div id="target-${index}" class="mt-3 min-h-[48px] p-2 bg-white border-2 border-dashed border-blue-300 rounded-xl flex flex-wrap gap-2 items-center"></div>
+                            
+                            <!-- Word Pool Area -->
+                            <div id="pool-${index}" class="mt-2 min-h-[40px] flex flex-wrap gap-2 items-center"></div>
+
+                            <div class="mt-3 flex justify-end">
+                                <button onclick="checkSingle(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition duration-150">
+                                    Kiểm Tra
+                                </button>
+                            </div>
+                            <p id="result-${index}" class="mt-2 text-sm font-semibold hidden"></p>
+                        </div>
+                    `;
+                } else if (currentMode === 2) {
+                    return `
+                        <div class="p-4 sm:p-5 bg-gray-50 rounded-xl border border-gray-200">
+                            <p class="font-bold text-blue-700 text-base sm:text-lg">${index + 1}. ${item.ans[0]}</p>
+                            <div class="mt-3 flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="input-${index}" placeholder="Nhập bản dịch Tiếng Việt..." 
+                                    class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                                    onkeypress="if(event.key==='Enter') checkSingle(${index})" />
+                                <button onclick="checkSingle(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition duration-150">
+                                    Kiểm Tra
+                                </button>
+                            </div>
+                            <p id="result-${index}" class="mt-2 text-sm font-semibold hidden"></p>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="p-4 sm:p-5 bg-gray-50 rounded-xl border border-gray-200">
+                            <p class="font-bold text-gray-800 text-base sm:text-lg">${index + 1}. ${item.vi}</p>
+                            <div class="mt-3 flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="input-${index}" placeholder="Nhập câu Tiếng Anh..." 
+                                    class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                                    onkeypress="if(event.key==='Enter') checkSingle(${index})" />
+                                <button onclick="checkSingle(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition duration-150">
+                                    Kiểm Tra
+                                </button>
+                            </div>
+                            <p id="result-${index}" class="mt-2 text-sm font-semibold hidden"></p>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            // Render puzzle buttons lần đầu
+            if (currentMode === 1) {
+                data.forEach((_, i) => renderPuzzleArea(i));
+            }
+        }
+
+        function cleanText(str) {
+            return str.toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' ').trim();
+        }
+
         function checkSingle(index) {
-            const userInput = document.getElementById(`input-${index}`).value.trim();
             const resultElem = document.getElementById(`result-${index}`);
-            
             resultElem.classList.remove('hidden', 'text-green-600', 'text-red-600');
 
-            if (!userInput) {
-                resultElem.textContent = '❌ Vui lòng nhập câu trả lời!';
-                resultElem.classList.add('text-red-600');
-                return;
-            }
-
-            const isCorrect = data[index].ans.some(a => a.toLowerCase() === userInput.toLowerCase());
-
-            if (isCorrect) {
-                resultElem.textContent = '✅ Chính xác!';
-                resultElem.classList.add('text-green-600');
+            if (currentMode === 1) {
+                const userSentence = puzzleState[index].selected.join(' ');
+                if (!userSentence) {
+                    resultElem.textContent = '❌ Vui lòng chọn từ để xếp câu!';
+                    resultElem.classList.add('text-red-600');
+                    return;
+                }
+                const isCorrect = data[index].ans.some(a => cleanText(a) === cleanText(userSentence));
+                if (isCorrect) {
+                    resultElem.textContent = '✅ Chính xác!';
+                    resultElem.classList.add('text-green-600');
+                } else {
+                    resultElem.innerHTML = `❌ Chưa chính xác. Đáp án đúng: <span class="underline">${data[index].ans[0]}</span>`;
+                    resultElem.classList.add('text-red-600');
+                }
+            } else if (currentMode === 2) {
+                const userInput = document.getElementById(`input-${index}`).value.trim();
+                if (!userInput) {
+                    resultElem.textContent = '❌ Vui lòng nhập bản dịch!';
+                    resultElem.classList.add('text-red-600');
+                    return;
+                }
+                const isCorrect = cleanText(userInput) === cleanText(data[index].vi);
+                if (isCorrect) {
+                    resultElem.textContent = '✅ Chính xác!';
+                    resultElem.classList.add('text-green-600');
+                } else {
+                    resultElem.innerHTML = `❌ Chưa chính xác. Gợi ý đáp án: <span class="underline">${data[index].vi}</span>`;
+                    resultElem.classList.add('text-red-600');
+                }
             } else {
-                resultElem.innerHTML = `❌ Chưa chính xác. Đáp án đúng: <span class="underline">${data[index].ans[0]}</span>`;
-                resultElem.classList.add('text-red-600');
+                const userInput = document.getElementById(`input-${index}`).value.trim();
+                if (!userInput) {
+                    resultElem.textContent = '❌ Vui lòng nhập câu trả lời!';
+                    resultElem.classList.add('text-red-600');
+                    return;
+                }
+                const isCorrect = data[index].ans.some(a => cleanText(a) === cleanText(userInput));
+                if (isCorrect) {
+                    resultElem.textContent = '✅ Chính xác!';
+                    resultElem.classList.add('text-green-600');
+                } else {
+                    resultElem.innerHTML = `❌ Chưa chính xác. Đáp án đúng: <span class="underline">${data[index].ans[0]}</span>`;
+                    resultElem.classList.add('text-red-600');
+                }
             }
         }
 
@@ -189,13 +365,10 @@
         }
 
         function resetAll() {
-            data.forEach((_, index) => {
-                document.getElementById(`input-${index}`).value = '';
-                const resultElem = document.getElementById(`result-${index}`);
-                resultElem.classList.add('hidden');
-            });
+            renderExercises();
         }
 
+        // Khởi chạy chế độ mặc định
         renderExercises();
     </script>
 </body>
